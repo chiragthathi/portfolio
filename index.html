@@ -551,6 +551,13 @@
 
     <script>
         $(document).ready(function () {
+
+            // Email validation function
+            function validateEmail(email) {
+                        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        return emailRegex.test(email);
+                    }
+
             // Handle form submission
             $('#contact-form').submit(function (event) {
                 event.preventDefault(); // Prevent form from submitting normally
@@ -657,11 +664,11 @@
                         });
                     });
 
-                    // Email validation function
-                    function validateEmail(email) {
-                        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        return emailRegex.test(email);
-                    }
+                    // // Email validation function
+                    // function validateEmail(email) {
+                    //     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    //     return emailRegex.test(email);
+                    // }
                 });
             });
         });
