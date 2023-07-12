@@ -417,8 +417,14 @@
                                 </div>
                             </div>
 
-                            <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default"><i
-                                    class="icon-paper-plane"></i>Send Message</button>
+                            <div class="column col-md-12">
+                                <!-- reCAPTCHA widget container -->
+                                <div class="g-recaptcha" data-sitekey="6LfV4hknAAAAANfVD0p8mmt98LhI1JJk65Jgijbg"
+                                    data-theme="dark"></div>
+                            </div>
+
+                            <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">Send
+                                Message</button>
                             <!-- Send Button -->
 
                         </form>
@@ -602,49 +608,71 @@
                     InputMessage: inputMessage
                 };
 
-                // Make AJAX request
-                $.ajax({
-                    type: 'POST',
-                    url: 'https://api-thathichirag.azurewebsites.net/email',
-                    data: formData,
-                    dataType: 'json',
-                    success: function (response) {
-                        // Handle success response
-                        console.log(response.message);
-                        $('.messages').html('<div class="alert alert-success">' + response.message + '</div>');
+                grecaptcha.ready(function () {
+                    grecaptcha.execute('6LfV4hknAAAAANfVD0p8mmt98LhI1JJk65Jgijbg', { action: 'submit' }).then(function (token) {
+                        
+                        var formData = {
+                            InputName: inputName,
+                            InputEmail: inputEmail,
+                            InputSubject: inputSubject,
+                            InputMessage: inputMessage,
+                            recaptchaToken: token
+                        };
 
-                        // Reset the form after a delay
-                        setTimeout(function () {
-                            $('.messages').empty(); // Remove the success message
-                            $('#contact-form')[0].reset(); // Reset the form
-                        }, 3000); // Delay in milliseconds (3 seconds in this example)
 
-                        // Re-enable submit button
-                        $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-                    },
+                        // Make AJAX request
+                        $.ajax({
+                            type: 'POST',
+                            url: 'https://api-thathichirag.azurewebsites.net/email',
+                            data: formData,
+                            dataType: 'json',
+                            success: function (response) {
+                                // Handle success response
+                                console.log(response.message);
+                                $('.messages').html('<div class="alert alert-success">' + response.message + '</div>');
 
-                    error: function (xhr, status, error) {
-                        // Handle error response
-                        console.error(xhr.responseText);
-                        $('.messages').html('<div class="alert alert-danger">Failed to send email</div>');
+                                // Reset the form after a delay
+                                setTimeout(function () {
+                                    $('.messages').empty(); // Remove the success message
+                                    $('#contact-form')[0].reset(); // Reset the form
+                                }, 3000); // Delay in milliseconds (3 seconds in this example)
 
-                        // Re-enable submit button
-                        $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-                    },
+                                // Re-enable submit button
+                                $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
+                            },
 
-                    complete: function () {
-                        // Hide loading indicator
-                        $('.loading-indicator').hide();
+                            error: function (xhr, status, error) {
+                                // Handle error response
+                                console.error(xhr.responseText);
+                                $('.messages').html('<div class="alert alert-danger">Failed to send email</div>');
+
+                                // Re-enable submit button
+                                $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
+                            },
+
+                            complete: function () {
+                                // Hide loading indicator
+                                $('.loading-indicator').hide();
+                            }
+                        });
+                    });
+
+                    // Email validation function
+                    function validateEmail(email) {
+                        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        return emailRegex.test(email);
                     }
                 });
             });
-
-            // Email validation function
-            function validateEmail(email) {
-                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
         });
+    </script>
+
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
+    <script>
+        function onSubmit(token) {
+            document.getElementById("contact-form").submit();
+        }
     </script>
 
 </body>
