@@ -549,11 +549,16 @@
     <script>
         function handleSubmit(event) {
             event.preventDefault();
-            const token = document.querySelector('.g-recaptcha-response').value;
-            document.querySelector('.g-recaptcha-response').value = ''; // Clear the reCAPTCHA response
-            // Perform any additional form submission logic here
-        }
+            const tokenInput = document.querySelector('.g-recaptcha-response');
+            const token = tokenInput.value;
+            tokenInput.parentNode.removeChild(tokenInput); // Remove the reCAPTCHA element
 
+            // Render the reCAPTCHA element again
+            const newRecaptchaElement = document.createElement('div');
+            newRecaptchaElement.className = 'g-recaptcha';
+            newRecaptchaElement.setAttribute('data-sitekey', '6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B');
+            document.getElementById('contact-form').appendChild(newRecaptchaElement);
+        }
     </script>
 
     <script>
