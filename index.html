@@ -418,7 +418,7 @@
                                 </div>
                             </div>
 
-                            <div class="g-recaptcha" data-sitekey=""></div>
+                            <div class="g-recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"></div>
 
                             <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">Send
                                 Message</button>
@@ -607,7 +607,7 @@
                 };
 
                 grecaptcha.ready(function () {
-                    grecaptcha.execute(' ', { action: 'submit' }).then(function (token) {
+                    grecaptcha.execute('6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B', { action: 'submit' }).then(function (token) {
                         var token = grecaptcha.getResponse(); // Get the reCAPTCHA token
                         var formData = {
                             recaptchaToken: token
