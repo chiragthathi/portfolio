@@ -28,6 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://kit.fontawesome.com/2e215a30fc.js" crossorigin="anonymous"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 
@@ -417,7 +418,7 @@
                                 </div>
                             </div>
 
-                            <div class="g-recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"></div>
+                            <div class="g-recaptcha" data-sitekey=""></div>
 
                             <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">Send
                                 Message</button>
@@ -606,7 +607,8 @@
                 };
 
                 grecaptcha.ready(function () {
-                    grecaptcha.execute('6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B', { action: 'submit' }).then(function (token) {
+                    grecaptcha.execute(' ', { action: 'submit' }).then(function (token) {
+                        var token = grecaptcha.getResponse(); // Get the reCAPTCHA token
                         var formData = {
                             recaptchaToken: token
                         };
@@ -658,8 +660,7 @@
             }
         });
     </script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    
 </body>
 
 </html>
