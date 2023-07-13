@@ -609,10 +609,6 @@
                 grecaptcha.ready(function () {
                     grecaptcha.execute('6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B', { action: 'submit' }).then(function (token) {
                         var formData = {
-                            InputName: inputName,
-                            InputEmail: inputEmail,
-                            InputSubject: inputSubject,
-                            InputMessage: inputMessage,
                             recaptchaToken: token
                         };
 
