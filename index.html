@@ -564,6 +564,7 @@
                 var inputEmail = $('#InputEmail').val();
                 var inputSubject = $('#InputSubject').val();
                 var inputMessage = $('#InputMessage').val();
+                var recaptchaResponse = grecaptcha.getResponse(); // Get reCAPTCHA response
 
                 // Perform client-side validations
                 var errors = [];
@@ -603,7 +604,8 @@
                     InputName: inputName,
                     InputEmail: inputEmail,
                     InputSubject: inputSubject,
-                    InputMessage: inputMessage
+                    InputMessage: inputMessage,
+                    recaptchaResponse: recaptchaResponse // Include reCAPTCHA response in form data
                 };
 
                 // Make AJAX request
