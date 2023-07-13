@@ -546,14 +546,15 @@
         });
     </script>
 
-<script>
-    function handleSubmit(event) {
-      event.preventDefault();
-      const token = document.querySelector('.g-recaptcha-response').value;
-      document.querySelector('.g-recaptcha').reset();
-    }
-    
-  </script>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const token = document.querySelector('.g-recaptcha-response').value;
+            document.querySelector('.g-recaptcha-response').value = ''; // Clear the reCAPTCHA response
+            // Perform any additional form submission logic here
+        }
+
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -652,12 +653,12 @@
                 });
             });
 
-        // Email validation function
-        function validateEmail(email) {
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
-    });
+            // Email validation function
+            function validateEmail(email) {
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+        });
     </script>
 
 </body>
