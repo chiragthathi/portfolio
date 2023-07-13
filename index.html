@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
 
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://kit.fontawesome.com/2e215a30fc.js" crossorigin="anonymous"></script>
@@ -374,7 +374,7 @@
 
                     <div class="col-md-8">
                         <!-- Contact Form -->
-                        <form id="contact-form" class="contact-form" method="post">
+                        <form id="contact-form" class="contact-form" method="post" onsubmit="handleSubmit(event)">
 
                             <div class="messages"></div>
 
@@ -546,6 +546,15 @@
         });
     </script>
 
+<script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const token = document.querySelector('.g-recaptcha-response').value;
+      document.querySelector('.g-recaptcha').reset();
+    }
+    
+  </script>
+
     <script>
         $(document).ready(function () {
 
@@ -564,7 +573,6 @@
                 var inputEmail = $('#InputEmail').val();
                 var inputSubject = $('#InputSubject').val();
                 var inputMessage = $('#InputMessage').val();
-                var recaptchaResponse = grecaptcha.getResponse(); // Get reCAPTCHA response
 
                 // Perform client-side validations
                 var errors = [];
@@ -605,7 +613,6 @@
                     InputEmail: inputEmail,
                     InputSubject: inputSubject,
                     InputMessage: inputMessage,
-                    recaptchaResponse: recaptchaResponse // Include reCAPTCHA response in form data
                 };
 
                 // Make AJAX request
