@@ -606,61 +606,51 @@
                     InputMessage: inputMessage
                 };
 
-                grecaptcha.ready(function () {
-                    grecaptcha.execute('6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B', { action: 'submit' }).then(function (token) {
-                        var token = grecaptcha.getResponse(); // Get the reCAPTCHA token
-                        var formData = {
-                            recaptchaToken: token
-                        };
+                // Make AJAX request
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://api-thathichirag.azurewebsites.net/email',
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        // Handle success response
+                        console.log(response.message);
+                        $('.messages').html('<div class="alert alert-success">' + response.message + '</div>');
 
+                        // Reset the form after a delay
+                        setTimeout(function () {
+                            $('.messages').empty(); // Remove the success message
+                            $('#contact-form')[0].reset(); // Reset the form
+                        }, 3000); // Delay in milliseconds (3 seconds in this example)
 
-                        // Make AJAX request
-                        $.ajax({
-                            type: 'POST',
-                            url: 'https://api-thathichirag.azurewebsites.net/email',
-                            data: formData,
-                            dataType: 'json',
-                            success: function (response) {
-                                // Handle success response
-                                console.log(response.message);
-                                $('.messages').html('<div class="alert alert-success">' + response.message + '</div>');
+                        // Re-enable submit button
+                        $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
+                    },
 
-                                // Reset the form after a delay
-                                setTimeout(function () {
-                                    $('.messages').empty(); // Remove the success message
-                                    $('#contact-form')[0].reset(); // Reset the form
-                                }, 3000); // Delay in milliseconds (3 seconds in this example)
+                    error: function (xhr, status, error) {
+                        // Handle error response
+                        console.error(xhr.responseText);
+                        $('.messages').html('<div class="alert alert-danger">Failed to send email</div>');
 
-                                // Re-enable submit button
-                                $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-                            },
+                        // Re-enable submit button
+                        $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
+                    },
 
-                            error: function (xhr, status, error) {
-                                // Handle error response
-                                console.error(xhr.responseText);
-                                $('.messages').html('<div class="alert alert-danger">Failed to send email</div>');
-
-                                // Re-enable submit button
-                                $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-                            },
-
-                            complete: function () {
-                                // Hide loading indicator
-                                $('.loading-indicator').hide();
-                            },
-                        });
-                    });
+                    complete: function () {
+                        // Hide loading indicator
+                        $('.loading-indicator').hide();
+                    },
                 });
             });
-
-            // Email validation function
-            function validateEmail(email) {
-                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
         });
+
+        // Email validation function
+        function validateEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
     </script>
-    
+
 </body>
 
 </html>
