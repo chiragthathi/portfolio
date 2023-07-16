@@ -559,21 +559,18 @@
             return;
         }
 
-        // Remove the reCAPTCHA element
-        var tokenInput = document.querySelector('.g-recaptcha-response');
-        tokenInput.parentNode.removeChild(tokenInput);
+        // Disable the submit button to prevent multiple submissions
+        $('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
 
-        // Render the reCAPTCHA element again
-        var newRecaptchaElement = document.createElement('div');
-        newRecaptchaElement.className = 'g-recaptcha';
-        newRecaptchaElement.setAttribute('data-sitekey', '6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B');
-        document.getElementById('contact-form').appendChild(newRecaptchaElement);
+        // Remove the reCAPTCHA element
+        grecaptcha.reset();
 
         // Continue with form submission and include the reCAPTCHA response
         document.getElementById('recaptchaToken').value = recaptchaResponse;
         document.getElementById('contact-form').submit();
     }
 </script>
+
 
     <script>
         $(document).ready(function () {
