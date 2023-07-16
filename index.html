@@ -413,7 +413,7 @@
                                         <textarea name="InputMessage" id="InputMessage" class="form-control" rows="5"
                                             placeholder="Message" required="required"
                                             data-error="Message is required."></textarea>
-                                            <input type="hidden" name="recaptchaResponse" id="recaptchaResponse" />
+                                        <input type="hidden" name="recaptchaResponse" id="recaptchaResponse" />
 
                                         <div class="help-block with-errors"></div>
                                     </div>
@@ -569,9 +569,10 @@
 
         // Continue with form submission and include the reCAPTCHA response
         document.getElementById('recaptchaResponse').value = recaptchaResponse;
-        document.getElementById('contact-form').form.submit();
+        document.getElementById('contact-form').submit();
     }
 </script>
+
 
 
 
