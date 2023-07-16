@@ -25,7 +25,8 @@
     <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script src="https://kit.fontawesome.com/2e215a30fc.js" crossorigin="anonymous"></script>
@@ -558,57 +559,16 @@
     </script>
 
     <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-
-            // Get the reCAPTCHA response
-            var recaptchaResponse = grecaptcha.getResponse();
-
-            // Check if the reCAPTCHA response is empty
-            if (!recaptchaResponse) {
-                alert("Please complete the reCAPTCHA verification");
-                return;
-            }
-
-            // Disable the submit button to prevent multiple submissions
-            $('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
-
-            // Remove the reCAPTCHA element
-            grecaptcha.reset();
-
-            // Continue with form submission and include the reCAPTCHA response
-            document.getElementById('recaptchaResponse').value = recaptchaResponse;
-
-            // Trigger form submission
-            var form = document.getElementById('contact-form');
-            var submitEvent = document.createEvent('Event');
-            submitEvent.initEvent('submit', true, true);
-            form.dispatchEvent(submitEvent);
-        }
-
-        // reCAPTCHA callback function
-        function recaptchaCallback() {
-            // Enable the submit button after reCAPTCHA verification
-            $('#submit').prop('disabled', false);
-        }
-
         $(document).ready(function () {
             // Handle form submission
             $('#contact-form').submit(function (event) {
                 event.preventDefault(); // Prevent form from submitting normally
-
-                // Disable submit button
-                $('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
-
-                // Show loading indicator
-                $('.loading-indicator').show();
 
                 // Retrieve form values
                 var inputName = $('#InputName').val();
                 var inputEmail = $('#InputEmail').val();
                 var inputSubject = $('#InputSubject').val();
                 var inputMessage = $('#InputMessage').val();
-                var recaptchaToken = grecaptcha.getResponse(); // Get the reCAPTCHA token
 
                 // Perform client-side validations
                 var errors = [];
@@ -633,15 +593,20 @@
                     });
                     errorHtml += '</ul></div>';
                     $('.messages').html(errorHtml);
-
-                    // Re-enable submit button
-                    $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-
-                    // Hide loading indicator
-                    $('.loading-indicator').hide();
-
                     return;
                 }
+
+                // Get the reCAPTCHA response
+                var recaptchaResponse = grecaptcha.getResponse();
+
+                // Check if the reCAPTCHA response is empty
+                if (!recaptchaResponse) {
+                    alert("Please complete the reCAPTCHA verification");
+                    return;
+                }
+
+                // Disable the submit button to prevent multiple submissions
+                $('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
 
                 // Create form data object
                 var formData = {
@@ -649,7 +614,7 @@
                     InputEmail: inputEmail,
                     InputSubject: inputSubject,
                     InputMessage: inputMessage,
-                    recaptchaToken: recaptchaToken
+                    recaptchaToken: recaptchaResponse // Use recaptchaResponse as the token
                 };
 
                 // Make AJAX request
@@ -696,6 +661,7 @@
                 return emailRegex.test(email);
             }
         });
+
     </script>
 
 
