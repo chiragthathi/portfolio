@@ -418,7 +418,7 @@
                                 </div>
                             </div>
 
-                            <div class="g-recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"></div>
+                            <div class="g-recaptcha" id="recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"></div>
 
                             <button type="submit" name="submit" id="submit" value="Submit" class="btn btn-default">Send
                                 Message</button>
@@ -619,6 +619,7 @@
                     InputEmail: inputEmail,
                     InputSubject: inputSubject,
                     InputMessage: inputMessage,
+                    recaptchaToken: grecaptcha.getResponse() // Include the reCAPTCHA token
                 };
 
                 // Make AJAX request
