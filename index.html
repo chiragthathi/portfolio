@@ -423,13 +423,10 @@
                                     <div class="form-group">
                                         <input type="hidden" name="recaptchaResponse" id="recaptchaResponse" />
                                         <div class="help-block with-errors"></div>
+                                        <div class="g-recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B" data-callback="recaptchaCallback"></div>
                                     </div>
                                 </div>
-
-                            </div>
-
-                            <div class="g-recaptcha" id="recaptcha"
-                                data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"></div>
+                                
 
                             <button type="submit" onclick="handleSubmit(event)" name="submit" id="submit" value="Submit"
                                 class="btn btn-default">Send
@@ -587,6 +584,12 @@
         form.dispatchEvent(submitEvent);
     }
 
+    // reCAPTCHA callback function
+    function recaptchaCallback() {
+        // Enable the submit button after reCAPTCHA verification
+        $('#submit').prop('disabled', false);
+    }
+
     $(document).ready(function () {
         // Handle form submission
         $('#contact-form').submit(function (event) {
@@ -690,6 +693,7 @@
         }
     });
 </script>
+
 
 
     <!-- <script>
