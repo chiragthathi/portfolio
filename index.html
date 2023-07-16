@@ -653,7 +653,8 @@
             $.ajax({
                 type: 'POST',
                 url: 'https://api-thathichirag.azurewebsites.net/email',
-                data: formData,
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
                 dataType: 'json',
                 success: function (response) {
                     // Handle success response
