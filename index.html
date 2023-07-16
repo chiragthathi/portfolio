@@ -569,9 +569,10 @@
 
         // Continue with form submission and include the reCAPTCHA response
         document.getElementById('recaptchaResponse').value = recaptchaResponse;
-        document.getElementById('contact-form').submit();
+        document.getElementById('contact-form').form.submit();
     }
 </script>
+
 
 
 
