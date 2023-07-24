@@ -641,6 +641,8 @@
                         data: JSON.stringify(formData),
                         contentType: 'application/json',
                         dataType: 'json',
+                        mode: 'cors',
+                        referrerpolicy: "origin-when-cross-origin",
                         success: function (response) {
                             // Handle success response
                             console.log(response.message);
