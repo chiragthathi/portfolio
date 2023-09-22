@@ -8,17 +8,16 @@
     <meta name="description"
         content="Chirag Thathi's Personal Portfolio Website: A captivating showcase of creativity, innovation, and technical expertise.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self' code.jquery.com cdnjs.cloudflare.com;
-    style-src 'self' maxcdn.bootstrapcdn.com;
-    font-src 'self' maxcdn.bootstrapcdn.com;
-    img-src 'self' data:;
+    script-src 'self' code.jquery.com cdnjs.cloudflare.com 'unsafe-inline';
+    style-src 'self' maxcdn.bootstrapcdn.com 'unsafe-inline';
+    font-src 'self' maxcdn.bootstrapcdn.com 'data:' 'unsafe-inline';
+    img-src 'self' data: 'unsafe-inline';
     object-src 'self';
     form-action 'self';
 ">
-
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 
     <!-- STYLESHEETS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
@@ -475,7 +474,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
 
     <script>
         // Get all the list items
