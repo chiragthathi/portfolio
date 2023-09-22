@@ -9,9 +9,14 @@
         content="Chirag Thathi's Personal Portfolio Website: A captivating showcase of creativity, innovation, and technical expertise.">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta http-equiv="Content-Security-Policy" content="
-    default-src * 'unsafe-inline' 'unsafe-eval';
+    default-src 'self';
+    script-src 'self' code.jquery.com cdnjs.cloudflare.com;
+    style-src 'self' maxcdn.bootstrapcdn.com;
+    font-src 'self' maxcdn.bootstrapcdn.com;
+    img-src 'self' data:;
+    object-src 'self';
+    frame-ancestors 'none';
 ">
-
 
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
 
