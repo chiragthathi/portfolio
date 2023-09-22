@@ -423,6 +423,14 @@
                                 </div> -->
 
                                 <div class="column col-md-12">
+                                    <!-- Message textarea  -->
+                                   <div class="form-group">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                       <div class="help-block with-errors"></div>
+                                   </div>
+                               </div> 
+                               
+                                <div class="column col-md-12">
                                 <button type="submit" onclick="handleSubmit(event)" name="submit" id="submit"
                                     value="Submit" class="btn btn-default">Send
                                     Message</button>
