@@ -413,14 +413,14 @@
                                     </div>
                                 </div> 
 
-                                <!-- <div class="column col-md-12">
+                                <div class="column col-md-12">
                                     <div class="form-group">
                                         <input type="hidden" name="recaptchaResponse" id="recaptchaResponse" />
                                         <div class="help-block with-errors"></div>
                                         <div class="g-recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"
                                             data-callback="recaptchaCallback"></div>
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <div class="column col-md-12">
                                 <button type="submit" onclick="handleSubmit(event)" name="submit" id="submit"
@@ -558,7 +558,7 @@
         });
     </script>
 
-    <!-- <script>
+    <script>
         function handleSubmit(event) {
             event.preventDefault();
 
@@ -581,16 +581,16 @@
             document.getElementById('recaptchaResponse').value = recaptchaResponse;
             $('#contact-form').submit();
         }
-    </script> -->
+    </script> 
 
     <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-        // function recaptchaCallback(response) {
-        //     $(document).ready(function () {
-        //         // Handle form submission
-        //         $('#contact-form').submit(function (event) {
-        //             event.preventDefault(); // Prevent form from submitting normally
+        //function handleSubmit(event) {
+        //    event.preventDefault();
+         function recaptchaCallback(response) {
+             $(document).ready(function () {
+                 // Handle form submission
+                 $('#contact-form').submit(function (event) {
+                     event.preventDefault(); // Prevent form from submitting normally
 
                     // Retrieve form values
                     var inputName = $('#InputName').val();
@@ -627,7 +627,7 @@
                     // Get the reCAPTCHA response
 
                     // Disable the submit button to prevent multiple submissions
-                    //$('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
+                    $('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
 
                     // Create form data object
                     var formData = {
@@ -635,7 +635,7 @@
                         InputEmail: inputEmail,
                         InputSubject: inputSubject,
                         InputMessage: inputMessage,
-                        //recaptchaToken: response // Use recaptchaToken as the token
+                        recaptchaToken: response // Use recaptchaToken as the token
                     };
 
                     // Make AJAX request
@@ -676,16 +676,16 @@
                             $('.loading-indicator').hide();
                         },
                     });
-                };
-                //);
+                }
+                );
 
                 // Email validation function
                 function validateEmail(email) {
                     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     return emailRegex.test(email);
                 }
-            //});
-        //}
+            });
+        }
     </script>
 
 </body>
