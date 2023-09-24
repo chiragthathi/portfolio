@@ -1,5 +1,5 @@
 User-agent: *
 Disallow: /private/
-Allow: /public/
+
 Sitemap: https://thathichirag.xyz/sitemap1.xml
 Sitemap: https://vul2-csp--stupendous-cat-d3ccde.netlify.app/sitemap2.xml
