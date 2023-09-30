@@ -14,7 +14,7 @@ X-Content-Type-Options: nosniff
 
 /*
 Content-Security-Policy:
-default-src 'self' https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css;
+default-src 'none';
 script-src 'self' https://code.jquery.com https://cdnjs.cloudflare.com https://kit.fontawesome.com
 https://www.google.com https://www.gstatic.com 'unsafe-inline';
 style-src 'self' https://cdnjs.cloudflare.com
