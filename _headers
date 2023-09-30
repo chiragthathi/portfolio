@@ -15,7 +15,7 @@ X-Content-Type-Options: nosniff
 /*
 Content-Security-Policy:
 <!-- default-src 'self'; -->
-default-src * 'self';
+default-src 'self' *;
 script-src 'self' https://code.jquery.com https://cdnjs.cloudflare.com https://kit.fontawesome.com
 https://www.google.com https://www.gstatic.com 'nonce-your-nonce-here' 'unsafe-inline';
 style-src 'self' https://cdnjs.cloudflare.com
