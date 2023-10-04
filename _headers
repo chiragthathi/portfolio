@@ -10,7 +10,10 @@
     object-src 'none';
     frame-src https://www.google.com; -->
 /*
-X-Content-Type-Options: nosniff
+X-Content-Type-Options: nosniff 
+/*
+X-Frame-Options: DENY
+
 
 /*
 Content-Security-Policy: default-src 'self' 'unsafe-inline';
