@@ -3,7 +3,7 @@
 <html lang="en-US">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/css; charset=UTF-8">
     <title>Chirag 1 | Portfolio</title>
     <meta name="description"
         content="Chirag Thathi's Personal Portfolio Website: A captivating showcase of creativity, innovation, and technical expertise.">
@@ -653,7 +653,8 @@
             // Make AJAX request
             $.ajax({
                 type: 'POST',
-                url: 'https://api-thathichirag.azurewebsites.net/email',
+                // url: 'https://api-thathichirag.azurewebsites.net/email',
+                url: 'http://localhost:5000',
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 dataType: 'json',
