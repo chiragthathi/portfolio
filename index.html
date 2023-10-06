@@ -413,22 +413,14 @@
                                     </div>
                                 </div>
 
-                                <!-- <div class="column col-md-12">
+                                <div class="column col-md-12">
                                     <div class="form-group">
                                         <input type="hidden" name="recaptchaResponse" id="recaptchaResponse" />
                                         <div class="help-block with-errors"></div>
                                         <div class="g-recaptcha" data-sitekey="6Lf9nRonAAAAAI3FS8MKusQUBLNKBuiDq0v5WR9B"
                                             data-callback="recaptchaCallback"></div>
                                     </div>
-                                </div> -->
-
-                                <div class="column col-md-12">
-                                    <!-- Message textarea  -->
-                                    <div class="form-group">
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                </div>
+                                </div> 
 
                                 <div class="column col-md-12">
                                     <button type="submit" onclick="handleSubmit(event)" name="submit" id="submit"
@@ -566,7 +558,7 @@
         });
     </script>
 
-    <!-- <script>
+    <script>
         function handleSubmit(event) {
             event.preventDefault();
 
@@ -589,116 +581,112 @@
             document.getElementById('recaptchaResponse').value = recaptchaResponse;
             $('#contact-form').submit();
         }
-    </script> -->
+    </script> 
 
     <script>
-        function handleSubmit(event) {
-            event.preventDefault();
-            // function recaptchaCallback(response) {
-            //     $(document).ready(function () {
-            //         // Handle form submission
-            //         $('#contact-form').submit(function (event) {
-            //             event.preventDefault(); // Prevent form from submitting normally
+        //function handleSubmit(event) {
+        //    event.preventDefault();
+         function recaptchaCallback(response) {
+             $(document).ready(function () {
+                 // Handle form submission
+                 $('#contact-form').submit(function (event) {
+                     event.preventDefault(); // Prevent form from submitting normally
 
-            // Retrieve form values
-            var inputName = $('#InputName').val();
-            var inputEmail = $('#InputEmail').val();
-            var inputSubject = $('#InputSubject').val();
-            var inputMessage = $('#InputMessage').val();
+                    // Retrieve form values
+                    var inputName = $('#InputName').val();
+                    var inputEmail = $('#InputEmail').val();
+                    var inputSubject = $('#InputSubject').val();
+                    var inputMessage = $('#InputMessage').val();
 
-            // Get the CSRF token from the hidden input field
-            var csrfToken = $('[name="_csrf"]').val();
+                    // Perform client-side validations
+                    var errors = [];
+                    if (inputName.length < 4) {
+                        errors.push('Name should contain at least 4 characters');
+                    }
+                    if (!validateEmail(inputEmail)) {
+                        errors.push('Enter a valid email address');
+                    }
+                    if (inputSubject.length < 8) {
+                        errors.push('Subject should contain at least 8 characters');
+                    }
+                    if (inputMessage.length < 10) {
+                        errors.push('Message should contain at least 10 characters');
+                    }
 
-            // Perform client-side validations
-            var errors = [];
-            if (inputName.length < 4) {
-                errors.push('Name should contain at least 4 characters');
-            }
-            if (!validateEmail(inputEmail)) {
-                errors.push('Enter a valid email address');
-            }
-            if (inputSubject.length < 8) {
-                errors.push('Subject should contain at least 8 characters');
-            }
-            if (inputMessage.length < 10) {
-                errors.push('Message should contain at least 10 characters');
-            }
+                    if (errors.length > 0) {
+                        // Display validation errors
+                        var errorHtml = '<div class="alert alert-danger"><ul>';
+                        errors.forEach(function (error) {
+                            errorHtml += '<li>' + error + '</li>';
+                        });
+                        errorHtml += '</ul></div>';
+                        $('.messages').html(errorHtml);
+                        return;
+                    }
 
-            if (errors.length > 0) {
-                // Display validation errors
-                var errorHtml = '<div class="alert alert-danger"><ul>';
-                errors.forEach(function (error) {
-                    errorHtml += '<li>' + error + '</li>';
-                });
-                errorHtml += '</ul></div>';
-                $('.messages').html(errorHtml);
-                return;
-            }
+                    // Get the reCAPTCHA response
 
-            // Get the reCAPTCHA response
+                    // Disable the submit button to prevent multiple submissions
+                    $('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
 
-            // Disable the submit button to prevent multiple submissions
-            //$('#submit').prop('disabled', true).html('<i class="icon-spin6 animate-spin"></i>Sending...');
+                    // Create form data object
+                    var formData = {
+                        InputName: inputName,
+                        InputEmail: inputEmail,
+                        InputSubject: inputSubject,
+                        InputMessage: inputMessage,
+                        recaptchaToken: response // Use recaptchaToken as the token
+                    };
 
-            // Create form data object
-            var formData = {
-                _csrf: csrfToken, // Include the CSRF token
-                InputName: inputName,
-                InputEmail: inputEmail,
-                InputSubject: inputSubject,
-                InputMessage: inputMessage,
-                //recaptchaToken: response // Use recaptchaToken as the token
-            };
+                    // Make AJAX request
+                    $.ajax({
+                        type: 'POST',
+                        //url:'http://localhost:5000/email',
+                        url: 'https://api-thathichirag.azurewebsites.net/email',
+                        data: JSON.stringify(formData),
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        mode: 'cors',
+                        referrerpolicy: "origin-when-cross-origin",
+                        success: function (response) {
+                            // Handle success response
+                            console.log(response.message);
+                            $('.messages').html('<div class="alert alert-success">' + response.message + '</div>');
 
-            // Make AJAX request
-            $.ajax({
-                type: 'POST',
-                // url: 'https://api-thathichirag.azurewebsites.net/email',
-                url: 'http://localhost:5000',
-                data: JSON.stringify(formData),
-                contentType: 'application/json',
-                dataType: 'json',
-                mode: 'cors',
-                referrerpolicy: "origin-when-cross-origin",
-                success: function (response) {
-                    // Handle success response
-                    console.log(response.message);
-                    $('.messages').html('<div class="alert alert-success">' + response.message + '</div>');
+                            // Reset the form after a delay
+                            setTimeout(function () {
+                                $('.messages').empty(); // Remove the success message
+                                $('#contact-form')[0].reset(); // Reset the form
+                            }, 3000); // Delay in milliseconds (3 seconds in this example)
 
-                    // Reset the form after a delay
-                    setTimeout(function () {
-                        $('.messages').empty(); // Remove the success message
-                        $('#contact-form')[0].reset(); // Reset the form
-                    }, 3000); // Delay in milliseconds (3 seconds in this example)
+                            // Re-enable submit button
+                            $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
+                        },
 
-                    // Re-enable submit button
-                    $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-                },
+                        error: function (xhr, status, error) {
+                            // Handle error response
+                            console.error(xhr.responseText);
+                            $('.messages').html('<div class="alert alert-danger">Failed to send email</div>');
 
-                error: function (xhr, status, error) {
-                    // Handle error response
-                    console.error(xhr.responseText);
-                    $('.messages').html('<div class="alert alert-danger">Failed to send email</div>');
+                            // Re-enable submit button
+                            $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
+                        },
 
-                    // Re-enable submit button
-                    $('#submit').prop('disabled', false).html('<i class="icon-paper-plane"></i>Send Message');
-                },
+                        complete: function () {
+                            // Hide loading indicator
+                            $('.loading-indicator').hide();
+                        },
+                    });
+                }
+                );
 
-                complete: function () {
-                    // Hide loading indicator
-                    $('.loading-indicator').hide();
-                },
+                // Email validation function
+                function validateEmail(email) {
+                    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(email);
+                }
             });
-        };
-        //);
-
-        // Email validation function
-        function validateEmail(email) {
-            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
         }
-        //});
-        //}
     </script>
 
 </body>
